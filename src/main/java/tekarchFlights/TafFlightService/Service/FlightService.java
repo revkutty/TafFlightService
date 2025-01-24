@@ -1,6 +1,7 @@
 package tekarchFlights.TafFlightService.Service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,7 +17,11 @@ import java.util.List;
 @Service
 public class FlightService {
 
-    private static final String DATASTORE_BASE_URL = "http://localhost:8081/api/flights";
+    @Value("${datasource.service.url}")
+    private String DATASTORE_BASE_URL;
+
+
+   // private static final String DATASTORE_BASE_URL = "http://localhost:8081/api/flights";
 
     @Autowired
     private RestTemplate restTemplate;

@@ -14,11 +14,20 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/flights")
+@CrossOrigin(origins = "*") // Enable CORS for all origins
 public class FlightController {
 
     @Autowired
     private FlightService flightService;
 
+    // Search for flights with query parameters
+    @GetMapping("/search")
+    public List<?> searchFlights(
+            @RequestParam String origin,
+            @RequestParam String destination,
+            @RequestParam String date) {
+        return flightService.searchFlights(origin, destination, date);
+    }
 
     @GetMapping("/{flightId}")
     public ResponseEntity<FlightResponse> getFlightById(@PathVariable Long flightId) {
@@ -30,7 +39,8 @@ public class FlightController {
         }
     }
 
-    @GetMapping
+    // Get all flights
+    @GetMapping("/all")
     public ResponseEntity<List<FlightResponse>> getAllFlights() {
         List<FlightResponse> flights = flightService.getAllFlights();
         return ResponseEntity.ok(flights);

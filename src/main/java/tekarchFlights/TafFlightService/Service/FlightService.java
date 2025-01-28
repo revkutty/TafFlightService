@@ -26,6 +26,11 @@ public class FlightService {
     @Autowired
     private RestTemplate restTemplate;
 
+    public List<?> searchFlights(String origin, String destination, String date) {
+        String url = String.format("%s?origin=%s&destination=%s&date=%s", DATASTORE_BASE_URL, origin, destination, date);
+        return restTemplate.getForObject(url, List.class);
+    }
+
     public FlightResponse getFlightById(Long flightId) {
         String url = DATASTORE_BASE_URL + "/" + flightId;
 
